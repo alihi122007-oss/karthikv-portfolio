@@ -72,15 +72,14 @@ if ('IntersectionObserver' in window && !prefersReducedMotion) {
   revealElements.forEach((element) => element.classList.add('visible'));
 }
 
-// Keep placeholder project/credential links from jumping to the page top
-document.querySelectorAll('a[href="#"]').forEach((link) => {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
-  });
+// Disable placeholder links marked as not-yet-available
+document.querySelectorAll('a[aria-disabled="true"]').forEach((link) => {
+  link.addEventListener('click', (event) => event.preventDefault());
 });
 
 // Dynamic footer year
-document.getElementById('year').textContent = new Date().getFullYear();
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // Back-to-top button visibility
 const backToTop = document.querySelector('.back-top');
